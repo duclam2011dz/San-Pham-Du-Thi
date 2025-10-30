@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Level Editor - Chạy Trốn Khỏi Khu Tự Trị</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="m-0 p-0 bg-black overflow-hidden flex flex-col h-screen">
+
+    <!-- Toolbar trên -->
+    <div class="flex justify-between items-center bg-gray-800 text-white px-4 py-2">
+        <h1 class="text-lg font-bold">Level Editor</h1>
+        <div class="flex gap-2">
+            <button id="importBtn" class="bg-green-600 px-3 py-1 rounded hover:bg-green-500">Import</button>
+            <button id="exportBtn" class="bg-blue-600 px-3 py-1 rounded hover:bg-blue-500">Export</button>
+        </div>
+    </div>
+
+    <!-- Canvas chính -->
+    <div class="flex-1 relative">
+        <canvas id="editorCanvas" class="block w-full h-full bg-black"></canvas>
+    </div>
+
+    <!-- Toolbar dưới -->
+    <div class="flex justify-between items-center bg-gray-900 p-2 text-white">
+        <div class="flex-1 flex justify-center gap-4">
+            <button id="selectGround" class="bg-gray-600 px-3 py-1 rounded hover:bg-gray-500">🪨 Ground</button>
+            <button id="selectSpawn" class="bg-green-600 px-3 py-1 rounded hover:bg-green-500">🏁 Checkpoint</button>
+        </div>
+        <div class="text-right w-48">
+            <p id="currentTile" class="text-sm text-gray-400">Tile hiện tại: <span class="font-semibold">Ground</span>
+            </p>
+        </div>
+    </div>
+
+    <script type="module" src="../src/editor.js"></script>
+</body>
+
+</html>
