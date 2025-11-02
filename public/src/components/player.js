@@ -4,6 +4,8 @@ export class Player {
     constructor(x, y) {
         this.x = x;
         this.y = y;
+        this.spawnPoint = { x, y }; // thêm spawnPoint mặc định
+
         this.width = 40;
         this.height = 60;
         this.color = "blue";
@@ -14,6 +16,7 @@ export class Player {
         this.gravity = 0.8;
         this.onGround = false;
         this.movingHorizontally = false;
+        this.respawning = false;
     }
 
     handleInput(keys) {
@@ -33,8 +36,8 @@ export class Player {
         }
     }
 
-    update(platforms, mapWidth) {
-        applyPlayerPhysics(this, platforms, mapWidth);
+    update(platforms, mapWidth, canvasHeight) {
+        applyPlayerPhysics(this, platforms, mapWidth, canvasHeight);
     }
 
     draw(ctx) {

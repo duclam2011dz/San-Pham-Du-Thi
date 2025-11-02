@@ -1,5 +1,6 @@
 import { EditorTiles } from "./editorTiles.js";
 import { EditorExport } from "./editorExport.js";
+import { EditorInit } from "./editorInit.js";
 
 export class EditorGUI {
     constructor(canvas, camera, mapWidth, mapHeight) {
@@ -11,6 +12,7 @@ export class EditorGUI {
 
         this.tilesManager = new EditorTiles(50);
         this.exporter = new EditorExport();
+        this.importer = new EditorInit(this.tilesManager);
 
         this.currentTool = "ground";
         this.initGUI();
@@ -36,9 +38,11 @@ export class EditorGUI {
             this.exporter.exportToJSON(this.tilesManager.tiles, spawn);
         };
 
-        // Import placeholder
-        document.getElementById("importBtn").onclick = () => {
-            alert("Tính năng Import JSON chưa sẵn sàng!");
+        // Import button (hiện prompt chọn file)
+        document.getElementById("importBtn").onclick = async () => {
+            const levelName = prompt("Nhập tên file level (không cần .json):", "level1");
+            if (!levelName) return;
+            await this.importer.importLevel(levelName);
         };
 
         // Mouse events
@@ -55,7 +59,6 @@ export class EditorGUI {
         const gridY = Math.floor(mouseY / this.tilesManager.tileSize) * this.tilesManager.tileSize;
 
         if (this.currentTool === "spawn") {
-            // Nếu đã có spawn → di chuyển thay vì tạo mới
             const existing = this.tilesManager.tiles.find(t => t.type === "spawn");
             if (existing) {
                 existing.x = gridX;

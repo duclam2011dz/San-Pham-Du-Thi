@@ -1,0 +1,74 @@
+# ==========================================
+# 🧱 Cơ bản
+# ==========================================
+# Thư mục node_modules (nặng như tạ)
+node_modules/
+
+# File môi trường
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Log, cache, và tạm thời
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+
+# ==========================================
+# 🧩 Build / Output
+# ==========================================
+dist/
+build/
+.cache/
+coverage/
+*.zip
+*.tar
+*.gz
+
+# ==========================================
+# 🧠 IDE và hệ điều hành
+# ==========================================
+# VSCode
+.vscode/
+.history/
+.idea/
+*.code-workspace
+
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ==========================================
+# 🕹️ Dành riêng cho dự án game
+# ==========================================
+# Bản tạm / export JSON test
+public/exports/
+public/assets/temp/
+public/assets/backup/
+
+# Level JSON người dùng xuất ra (chỉ lưu local)
+*.level.json
+*.export.json
+
+# ==========================================
+# ⚙️ Git / Deploy
+# ==========================================
+# GitHub Pages build
+gh-pages/
+.cache/
+out/
