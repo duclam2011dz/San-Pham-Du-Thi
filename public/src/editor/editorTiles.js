@@ -1,3 +1,4 @@
+// public/src/editor/editorTiles.js
 export class EditorTiles {
     constructor(tileSize = 50) {
         this.tileSize = tileSize;
@@ -22,7 +23,9 @@ export class EditorTiles {
 
     draw(ctx) {
         for (let t of this.tiles) {
-            ctx.fillStyle = t.type === "ground" ? "gray" : "limegreen";
+            if (t.type === "ground") ctx.fillStyle = "gray";
+            else if (t.type === "spawn") ctx.fillStyle = "limegreen";
+            else if (t.type === "enemy") ctx.fillStyle = "red";
             ctx.fillRect(t.x, t.y, t.width, t.height);
         }
     }

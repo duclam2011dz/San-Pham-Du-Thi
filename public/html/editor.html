@@ -28,10 +28,28 @@
         <div class="flex-1 flex justify-center gap-4">
             <button id="selectGround" class="bg-gray-600 px-3 py-1 rounded hover:bg-gray-500">🪨 Ground</button>
             <button id="selectSpawn" class="bg-green-600 px-3 py-1 rounded hover:bg-green-500">🏁 Checkpoint</button>
+            <button id="selectEnemy" class="bg-red-600 px-3 py-1 rounded hover:bg-red-500">💀 Enemy</button>
         </div>
         <div class="text-right w-48">
             <p id="currentTile" class="text-sm text-gray-400">Tile hiện tại: <span class="font-semibold">Ground</span>
             </p>
+        </div>
+    </div>
+
+    <!-- Modal Import -->
+    <div id="importModal"
+        class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 opacity-0 transition-opacity duration-500">
+        <div
+            class="bg-gray-800 text-white p-6 rounded shadow-lg w-80 text-center transform scale-95 transition-transform duration-500">
+            <h2 class="text-lg font-bold mb-4">Chọn chế độ Import</h2>
+            <div class="flex flex-col gap-3">
+                <button id="importLocalBtn" class="bg-green-600 hover:bg-green-500 px-3 py-2 rounded">📁 Import từ máy
+                    tính</button>
+                <button id="importDevBtn" class="bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded">🧠 Import từ
+                    workspace</button>
+            </div>
+            <button id="closeModalBtn" class="mt-5 text-gray-400 hover:text-gray-200">Đóng</button>
+            <input type="file" id="fileInput" accept=".json" class="hidden" />
         </div>
     </div>
 

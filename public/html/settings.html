@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Settings - Chạy Trốn Khỏi Khu Tự Trị</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black text-white h-screen flex flex-col items-center font-sans p-6 overflow-hidden relative">
+
+    <!-- Overlay chuyển cảnh -->
+    <div id="fadeOverlay" class="fixed inset-0 bg-black opacity-100 transition-opacity duration-700"></div>
+
+    <h1 class="text-3xl font-bold text-green-400 mb-8 z-10">⚙️ Cài đặt</h1>
+
+    <!-- Editor Settings -->
+    <section class="bg-gray-800 rounded-lg p-6 w-96 shadow-lg z-10">
+        <h2 class="text-xl font-semibold mb-4">🧱 Editor</h2>
+        <div class="flex items-center justify-between">
+            <span>Bật autosave editor (session)</span>
+            <label class="inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="toggleAutosave" class="sr-only peer">
+                <div class="w-11 h-6 bg-gray-600 rounded-full peer peer-checked:bg-green-500 relative transition">
+                    <span
+                        class="absolute left-[2px] top-[2px] bg-white w-5 h-5 rounded-full peer-checked:translate-x-full transition"></span>
+                </div>
+            </label>
+        </div>
+    </section>
+
+    <!-- Back Button -->
+    <button id="backBtn" class="mt-10 bg-gray-700 hover:bg-gray-600 px-5 py-2 rounded text-lg font-semibold z-10">
+        ⬅️ Quay lại Menu
+    </button>
+
+    <script type="module" src="../src/settings.js"></script>
+</body>
+
+</html>

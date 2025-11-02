@@ -6,17 +6,20 @@ export async function loadLevelJSON(levelName) {
 
         // Giải mã JSON compact từ editorExport
         const tiles = data.t.map(t => ({
-            type: t.t === "g" ? "ground" : "spawn",
+            type: t.t === "g" ? "ground" :
+                t.t === "s" ? "spawn" :
+                    t.t === "e" ? "enemy" : "unknown",
             x: t.x,
             y: t.y,
             width: t.w,
             height: t.h,
         }));
 
+        const enemies = tiles.filter(t => t.type === "enemy");
         const platforms = tiles.filter(t => t.type === "ground");
         const spawn = data.s ? { x: data.s.sx, y: data.s.sy } : { x: 0, y: 0 };
 
-        return { platforms, spawn, meta: data.meta || {} };
+        return { platforms, enemies, spawn, meta: data.meta || {} };
     } catch (err) {
         console.error("Lỗi khi load level:", err);
         return { platforms: [], spawn: { x: 0, y: 0 }, meta: {} };

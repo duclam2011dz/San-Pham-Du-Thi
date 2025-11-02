@@ -15,9 +15,11 @@ export class EditorExport {
 
         const data = {
             // Compact key version:
-            // t = tile type, x, y, w = width, h = height
+            // t = tile type, x, y, w = width, h = height, e = enemy
             t: tiles.map(tile => ({
-                t: tile.type === "ground" ? "g" : "s",
+                t: tile.type === "ground" ? "g" :
+                    tile.type === "spawn" ? "s" :
+                        "e",
                 x: tile.x,
                 y: tile.y,
                 w: tile.width,
@@ -26,7 +28,7 @@ export class EditorExport {
             // Compact spawn (sx, sy)
             s: spawnPoint ? { sx: spawnPoint.x, sy: spawnPoint.y } : null,
             meta: {
-                version: "1.0",
+                version: "1.1",
                 exportedAt: new Date().toISOString(),
                 tileCount: tiles.length,
             },

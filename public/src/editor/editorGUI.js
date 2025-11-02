@@ -1,6 +1,7 @@
 import { EditorTiles } from "./editorTiles.js";
 import { EditorExport } from "./editorExport.js";
 import { EditorInit } from "./editorInit.js";
+import { autosaveLevel } from "./editorSaving.js";
 
 export class EditorGUI {
     constructor(canvas, camera, mapWidth, mapHeight) {
@@ -32,18 +33,58 @@ export class EditorGUI {
             this.currentTileEl.textContent = "Checkpoint";
         };
 
+        document.getElementById("selectEnemy").onclick = () => {
+            this.currentTool = "enemy";
+            this.currentTileEl.textContent = "Enemy";
+        };
+
         // Export button
         document.getElementById("exportBtn").onclick = () => {
             const spawn = this.tilesManager.getSpawnPoint();
             this.exporter.exportToJSON(this.tilesManager.tiles, spawn);
         };
 
-        // Import button (hiện prompt chọn file)
-        document.getElementById("importBtn").onclick = async () => {
+        // Import button (hiển thị modal)
+        document.getElementById("importBtn").onclick = () => {
+            const modal = document.getElementById("importModal");
+            modal.classList.remove("hidden");
+            setTimeout(() => {
+                modal.style.opacity = "1";
+                modal.querySelector("div").classList.remove("scale-95");
+                modal.querySelector("div").classList.add("scale-100");
+            }, 10);
+        };
+
+        // Modal events
+        document.getElementById("closeModalBtn").onclick = () => {
+            const modal = document.getElementById("importModal");
+            modal.style.opacity = "0";
+            modal.querySelector("div").classList.remove("scale-100");
+            modal.querySelector("div").classList.add("scale-95");
+            setTimeout(() => modal.classList.add("hidden"), 500);
+        };
+
+        // Dev import (workspace)
+        document.getElementById("importDevBtn").onclick = async () => {
             const levelName = prompt("Nhập tên file level (không cần .json):", "level1");
             if (!levelName) return;
             await this.importer.importLevel(levelName);
+            document.getElementById("importModal").classList.add("hidden");
         };
+
+        // Local import (từ máy tính)
+        document.getElementById("importLocalBtn").onclick = () => {
+            document.getElementById("fileInput").click();
+        };
+
+        // Khi chọn file JSON từ máy
+        document.getElementById("fileInput").addEventListener("change", async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            await this.importer.importLocalFile(file);
+            document.getElementById("importModal").classList.add("hidden");
+            e.target.value = ""; // reset input
+        });
 
         // Mouse events
         this.canvas.addEventListener("click", (e) => this.handleLeftClick(e));
@@ -63,11 +104,13 @@ export class EditorGUI {
             if (existing) {
                 existing.x = gridX;
                 existing.y = gridY;
+                autosaveLevel(this.tilesManager);
                 return;
             }
         }
 
         this.tilesManager.addTile(gridX, gridY, this.currentTool);
+        autosaveLevel(this.tilesManager);
     }
 
     handleRightClick(e) {
@@ -80,6 +123,7 @@ export class EditorGUI {
         const gridY = Math.floor(mouseY / this.tilesManager.tileSize) * this.tilesManager.tileSize;
 
         this.tilesManager.removeTile(gridX, gridY);
+        autosaveLevel(this.tilesManager);
     }
 
     drawEditor(ctx) {
